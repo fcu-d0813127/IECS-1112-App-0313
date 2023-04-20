@@ -1,6 +1,7 @@
 package com.example.iecs_1112_app_0313;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,10 @@ import android.widget.TextView;
 
 public class RestaurantGridViewAdapter extends BaseAdapter {
   Context context;
-  Restaurant restaurants[];
+  Restaurant[] restaurants;
   LayoutInflater inflater;
 
-  public RestaurantGridViewAdapter(Context context, Restaurant restaurants[]) {
+  public RestaurantGridViewAdapter(Context context, Restaurant[] restaurants) {
     this.context = context;
     this.restaurants = restaurants;
     this.inflater = LayoutInflater.from(this.context);
@@ -49,6 +50,13 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
     restaurant_logo.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
     restaurant_name.setText(restaurant.name);
+
+    // 為每個物件添加點擊事件並包裝被點擊的餐廳名稱
+    view.setOnClickListener(v -> {
+      Intent intent = new Intent(context, MenuActivity.class);
+      intent.putExtra("restaurant_name", restaurant.name);
+      context.startActivity(intent);
+    });
 
     return view;
   }

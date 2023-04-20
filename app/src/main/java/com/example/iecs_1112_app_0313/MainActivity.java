@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    Restaurant restaurants[] = {
+    Restaurant[] restaurants = {
       new Restaurant(R.drawable.ic_launcher_background, "7-11"),
       new Restaurant(R.drawable.ic_launcher_background, "Family Mart"),
       new Restaurant(R.drawable.ic_launcher_background, "OK Mart")
@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     restaurants_grid.setAdapter(new RestaurantGridViewAdapter(this, restaurants));
 
     SearchView restaurants_searchbar = findViewById(R.id.restaurants_searchbar);
-    restaurants_searchbar = findViewById(R.id.restaurants_searchbar);
     restaurants_searchbar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
       @Override
       public boolean onQueryTextSubmit(String query) {
