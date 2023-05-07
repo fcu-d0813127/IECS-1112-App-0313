@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,9 +19,12 @@ public class MenuActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_menu);
 
+    Button btnShoppingCart = (Button) findViewById(R.id.btn_next);
+    btnShoppingCart.setText("購物車");
+
     // 獲取使用者點擊的餐廳名稱並更改餐廳詳細頁面中的餐廳名稱
     Intent intent = getIntent();
-    TextView restaurantName = (TextView) findViewById(R.id.tv_restaurant_name);
+    TextView restaurantName = (TextView) findViewById(R.id.tv_title_name);
     restaurantName.setText(intent.getStringExtra("restaurant_name"));
 
     List<MenuItem> menuItems = new ArrayList<>();
@@ -29,5 +34,12 @@ public class MenuActivity extends AppCompatActivity {
 
     ListView menuListView = (ListView) findViewById(R.id.lv_menu_list);
     menuListView.setAdapter(new MenuListViewAdapter(this, menuItems));
+
+    View.OnClickListener listener = view -> {
+      Intent shoppingCartIntent = new Intent(MenuActivity.this, ShoppingCartActivity.class);
+      startActivity(shoppingCartIntent);
+    };
+
+    btnShoppingCart.setOnClickListener(listener);
   }
 }
