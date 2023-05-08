@@ -9,25 +9,43 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+import me.xdrop.fuzzywuzzy.FuzzySearch;
+
+class RestraurantSearchResult {
+  Restaurant restaurant;
+  int similarity;
+
+  public RestraurantSearchResult(Restaurant restaurant, int similarity) {
+    this.restaurant = restaurant;
+    this.similarity = similarity;
+  }
+}
+
 public class RestaurantGridViewAdapter extends BaseAdapter {
   Context context;
-  Restaurant[] restaurants;
+  List<Restaurant> restaurants;
+  List<Restaurant> restaurants_view;
   LayoutInflater inflater;
 
-  public RestaurantGridViewAdapter(Context context, Restaurant[] restaurants) {
+  public RestaurantGridViewAdapter(Context context, List<Restaurant> restaurants) {
     this.context = context;
     this.restaurants = restaurants;
+    this.restaurants_view = new ArrayList<>(restaurants);
     this.inflater = LayoutInflater.from(this.context);
   }
 
   @Override
   public int getCount() {
-    return restaurants.length;
+    return restaurants_view.size();
   }
 
   @Override
   public Object getItem(int i) {
-    return restaurants[i];
+    return restaurants_view.get(i);
   }
 
   @Override
@@ -42,7 +60,7 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
       view = LayoutInflater.from(context).inflate(R.layout.restaurant_layout, parent, false);
     }
 
-    Restaurant restaurant = restaurants[i];
+    Restaurant restaurant = restaurants_view.get(i);
     TextView restaurant_name = view.findViewById(R.id.restaurant_name);
     ImageView restaurant_logo = view.findViewById(R.id.restaurant_logo);
 
@@ -59,5 +77,28 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
     });
 
     return view;
+  }
+
+  // Perform Fuzzy Search on restaurants against the specified keyword
+  public void filter(String keyword) {
+    if (keyword == null || keyword.isEmpty()) {
+      restaurants_view = new ArrayList<>(restaurants);
+    } else {
+      ArrayList<RestraurantSearchResult> search_results = new ArrayList<>();
+      String keyword_lowercase = keyword.toLowerCase();
+
+      for (Restaurant restaurant : restaurants) {
+        int similarity = FuzzySearch.weightedRatio(restaurant.name.toLowerCase(), keyword_lowercase);
+        if (similarity == 0) continue;
+        search_results.add(new RestraurantSearchResult(restaurant, similarity));
+      }
+      search_results.sort(Comparator.comparingInt(restaurant -> ((RestraurantSearchResult) restaurant).similarity).reversed());
+
+      restaurants_view.clear();
+      for (RestraurantSearchResult search_result : search_results) {
+        restaurants_view.add(search_result.restaurant);
+      }
+    }
+    this.notifyDataSetChanged();
   }
 }
