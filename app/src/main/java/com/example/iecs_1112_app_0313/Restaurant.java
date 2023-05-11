@@ -4,7 +4,7 @@ public class Restaurant {
   public int logo_id;
   public String name;
 
-  public Restaurant(int logo_id, String name) {
+  public Restaurant( int logo_id, String name ) {
     this.logo_id = logo_id;
     this.name = name;
   }
