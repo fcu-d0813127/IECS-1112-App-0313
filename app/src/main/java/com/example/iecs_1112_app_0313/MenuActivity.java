@@ -15,31 +15,31 @@ import java.util.List;
 public class MenuActivity extends AppCompatActivity {
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_menu);
+  protected void onCreate( Bundle savedInstanceState ) {
+    super.onCreate( savedInstanceState );
+    setContentView( R.layout.activity_menu );
 
-    Button btnShoppingCart = (Button) findViewById(R.id.btn_next);
-    btnShoppingCart.setText("購物車");
+    Button btnShoppingCart = findViewById( R.id.btn_next );
+    btnShoppingCart.setText( "購物車" );
 
     // 獲取使用者點擊的餐廳名稱並更改餐廳詳細頁面中的餐廳名稱
     Intent intent = getIntent();
-    TextView restaurantName = (TextView) findViewById(R.id.tv_title_name);
-    restaurantName.setText(intent.getStringExtra("restaurant_name"));
+    TextView restaurantName = findViewById( R.id.tv_title_name );
+    restaurantName.setText( intent.getStringExtra( "restaurant_name" ) );
 
     List<MenuItem> menuItems = new ArrayList<>();
-    menuItems.add(new MenuItem(R.drawable.ic_launcher_background, "Home", 100));
-    menuItems.add(new MenuItem(R.drawable.ic_launcher_background, "Home", 100));
-    menuItems.add(new MenuItem(R.drawable.ic_launcher_background, "Home", 100));
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
 
-    ListView menuListView = (ListView) findViewById(R.id.lv_menu_list);
-    menuListView.setAdapter(new MenuListViewAdapter(this, menuItems));
+    ListView menuListView = findViewById( R.id.lv_menu_list );
+    menuListView.setAdapter( new MenuListViewAdapter( this, menuItems ) );
 
     View.OnClickListener listener = view -> {
-      Intent shoppingCartIntent = new Intent(MenuActivity.this, ShoppingCartActivity.class);
-      startActivity(shoppingCartIntent);
+      Intent shoppingCartIntent = new Intent( MenuActivity.this, ShoppingCartActivity.class );
+      startActivity( shoppingCartIntent );
     };
 
-    btnShoppingCart.setOnClickListener(listener);
+    btnShoppingCart.setOnClickListener( listener );
   }
 }

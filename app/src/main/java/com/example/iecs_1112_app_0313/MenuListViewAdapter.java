@@ -14,7 +14,7 @@ public class MenuListViewAdapter extends BaseAdapter {
   private final Context context;
   private final List<MenuItem> menuItems;
 
-  public MenuListViewAdapter(Context context, List<MenuItem> menuItems) {
+  public MenuListViewAdapter( Context context, List<MenuItem> menuItems ) {
     this.context = context;
     this.menuItems = menuItems;
   }
@@ -25,31 +25,31 @@ public class MenuListViewAdapter extends BaseAdapter {
   }
 
   @Override
-  public Object getItem(int i) {
+  public Object getItem( int i ) {
     return null;
   }
 
   @Override
-  public long getItemId(int i) {
+  public long getItemId( int i ) {
     return 0;
   }
 
   @Override
-  public View getView(int i, View view, ViewGroup viewGroup) {
-    if (view == null) {
-      view = LayoutInflater.from(context).inflate(R.layout.menu_layout, viewGroup, false);
+  public View getView( int i, View view, ViewGroup viewGroup ) {
+    if ( view == null ) {
+      view = LayoutInflater.from( context ).inflate( R.layout.menu_layout, viewGroup, false );
     }
 
-    MenuItem menuItem = menuItems.get(i);
+    MenuItem menuItem = menuItems.get( i );
 
-    ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-    imageView.setImageResource(menuItem.getImageId());
+    ImageView imageView = view.findViewById( R.id.imageView );
+    imageView.setImageResource( menuItem.getImageId() );
 
-    TextView foodName = (TextView) view.findViewById(R.id.tv_food_name);
-    foodName.setText(menuItem.getFoodName());
+    TextView foodName = view.findViewById( R.id.tv_food_name );
+    foodName.setText( menuItem.getFoodName() );
 
-    TextView foodPrice = (TextView) view.findViewById(R.id.tv_food_price);
-    foodPrice.setText(String.valueOf(menuItem.getFoodPrice()));
+    TextView foodPrice = view.findViewById( R.id.tv_food_price );
+    foodPrice.setText( String.valueOf( menuItem.getFoodPrice() ) );
 
     return view;
   }

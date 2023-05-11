@@ -5,7 +5,7 @@ public class MenuItem {
   private String foodName;
   private int foodPrice;
 
-  public MenuItem(int imageId, String foodName, int foodPrice) {
+  public MenuItem( int imageId, String foodName, int foodPrice ) {
     this.imageId = imageId;
     this.foodName = foodName;
     this.foodPrice = foodPrice;
@@ -15,7 +15,7 @@ public class MenuItem {
     return imageId;
   }
 
-  public void setImageId(int imageId) {
+  public void setImageId( int imageId ) {
     this.imageId = imageId;
   }
 
@@ -23,7 +23,7 @@ public class MenuItem {
     return foodName;
   }
 
-  public void setFoodName(String foodName) {
+  public void setFoodName( String foodName ) {
     this.foodName = foodName;
   }
 
@@ -31,7 +31,7 @@ public class MenuItem {
     return foodPrice;
   }
 
-  public void setFoodPrice(int foodPrice) {
+  public void setFoodPrice( int foodPrice ) {
     this.foodPrice = foodPrice;
   }
 }
