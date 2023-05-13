@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray">
+
+    <TextView
+        android:id="@+id/tv_popup_food_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:text="餐點名稱"
+        android:textAlignment="textStart"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_popup_food_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintEnd_toEndOf="@+id/tv_popup_food_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_popup_food_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_popup_food_name"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/tv_popup_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="餐點描述"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_popup_food_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_popup_food_name"
+        app:layout_constraintTop_toBottomOf="@+id/iv_popup_food_image" />
+
+    <Button
+        android:id="@+id/btn_popup_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="-"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tv_popup_number"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/tv_popup_food_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_popup_description" />
+
+    <Button
+        android:id="@+id/btn_popup_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="+"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tv_popup_description"
+        app:layout_constraintTop_toBottomOf="@+id/tv_popup_description" />
+
+    <TextView
+        android:id="@+id/tv_popup_number"
+        android:layout_width="32dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="1"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_popup_add"
+        app:layout_constraintEnd_toStartOf="@+id/btn_popup_add"
+        app:layout_constraintTop_toTopOf="@+id/btn_popup_add" />
+
+    <Button
+        android:id="@+id/btn_popup_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="確認"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_popup_food_name"
+        app:layout_constraintTop_toBottomOf="@+id/btn_popup_add" />
+
+    <Button
+        android:id="@+id/btn_popup_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:text="取消"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toStartOf="@+id/btn_popup_confirm"
+        app:layout_constraintTop_toBottomOf="@+id/btn_popup_add" />
+</androidx.constraintlayout.widget.ConstraintLayout>
