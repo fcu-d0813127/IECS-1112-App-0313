@@ -1,11 +1,13 @@
 package com.example.iecs_1112_app_0313;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +41,12 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     ListView menuListView = findViewById( R.id.lv_menu_list );
     menuListView.setAdapter( new MenuListViewAdapter( this, menuItems ) );
+
+    View.OnClickListener listener = view -> {
+      Intent intent = new Intent( ShoppingCartActivity.this, PickUpTimeActivity.class );
+      startActivity( intent );
+    };
+
+    btnNext.setOnClickListener( listener );
   }
 }
