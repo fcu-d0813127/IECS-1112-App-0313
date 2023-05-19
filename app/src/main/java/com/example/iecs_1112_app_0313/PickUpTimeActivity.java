@@ -2,8 +2,11 @@ package com.example.iecs_1112_app_0313;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -22,6 +25,15 @@ public class PickUpTimeActivity extends AppCompatActivity {
 
     ArrayAdapter<String> adapter = new ArrayAdapter<>( this, android.R.layout.simple_spinner_item, timeList );
     pickUpTimeOptions.setAdapter( adapter );
+
+    Button btnNext = findViewById( R.id.btn_pick_up_time_next );
+
+    View.OnClickListener listener = view -> {
+      Intent intent = new Intent( PickUpTimeActivity.this, DetailBeforeCheckoutActivity.class );
+      startActivity( intent );
+    };
+
+    btnNext.setOnClickListener( listener );
   }
 
   private ArrayList<String> generateTimeList() {
