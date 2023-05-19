@@ -16,7 +16,7 @@ import java.util.List;
 public class MenuListViewAdapter extends BaseAdapter {
   private final Context context;
   private final List<MenuItem> menuItems;
-  private PopupWindow foodPopupWindow;
+  private PopupWindow foodPopupWindow = null;
 
   public MenuListViewAdapter( Context context, List<MenuItem> menuItems ) {
     this.context = context;
@@ -65,6 +65,10 @@ public class MenuListViewAdapter extends BaseAdapter {
   }
 
   private void initPopupWindow( MenuItem menuItem ) {
+    if ( foodPopupWindow != null ) {
+      return;
+    }
+
     View view = LayoutInflater.from( context ).inflate( R.layout.food_popup_window_layout, null );
     foodPopupWindow = new PopupWindow( view );
 
@@ -74,6 +78,7 @@ public class MenuListViewAdapter extends BaseAdapter {
     ImageView foodImage = view.findViewById( R.id.iv_popup_food_image );
     foodImage.setImageResource( menuItem.getImageId() );
 
+    // 設定視窗大小與位置
     foodPopupWindow.setHeight( ViewGroup.LayoutParams.WRAP_CONTENT );
     foodPopupWindow.setWidth( ViewGroup.LayoutParams.WRAP_CONTENT );
     foodPopupWindow.showAtLocation( view, Gravity.CENTER_HORIZONTAL, 0, 0 );
@@ -85,14 +90,14 @@ public class MenuListViewAdapter extends BaseAdapter {
 
       if ( v.getId() == R.id.btn_popup_add ) {
         number++;
-      } else if ( v.getId() == R.id.btn_popup_sub ) {
-        if (number != 1) {
-          number--;
-        }
+      } else if ( v.getId() == R.id.btn_popup_sub && number > 1 ) {
+        number--;
       } else if ( v.getId() == R.id.btn_popup_confirm ) {
         foodPopupWindow.dismiss();
+        foodPopupWindow = null;
       } else if ( v.getId() == R.id.btn_popup_cancel ) {
         foodPopupWindow.dismiss();
+        foodPopupWindow = null;
       }
 
       tvNumber.setText( String.valueOf( number ) );
@@ -102,6 +107,7 @@ public class MenuListViewAdapter extends BaseAdapter {
     Button btnSub = view.findViewById( R.id.btn_popup_sub );
     Button btnConfirm = view.findViewById( R.id.btn_popup_confirm );
     Button btnCancel = view.findViewById( R.id.btn_popup_cancel );
+
     btnAdd.setOnClickListener( listener );
     btnSub.setOnClickListener( listener );
     btnConfirm.setOnClickListener( listener );
