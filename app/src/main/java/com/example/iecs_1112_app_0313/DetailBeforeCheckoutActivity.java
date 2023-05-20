@@ -1,5 +1,7 @@
 package com.example.iecs_1112_app_0313;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,12 +14,15 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class DetailBeforeCheckoutActivity extends AppCompatActivity {
+  private Context selfContext;
   private PopupWindow doubleCheckWindow = null;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_detail_before_checkout );
+
+    selfContext = this;
 
     TextView tvTitle = findViewById( R.id.tv_detail_title );
     tvTitle.setText( "確認餐點" );
@@ -56,6 +61,10 @@ public class DetailBeforeCheckoutActivity extends AppCompatActivity {
       if ( view1.getId() == R.id.btn_check_cancel ) {
         doubleCheckWindow.dismiss();
       } else if ( view1.getId() == R.id.btn_check_confirm ) {
+        Intent intent = new Intent( DetailBeforeCheckoutActivity.this, DetailAfterCheckoutActivity.class );
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity( intent );
+        finish();
         doubleCheckWindow.dismiss();
       }
       doubleCheckWindow = null;
