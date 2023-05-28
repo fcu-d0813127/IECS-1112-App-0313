@@ -19,28 +19,26 @@ public class ShoppingCartActivity extends AppCompatActivity {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_shopping_cart );
 
-    TextView tvShoppingCart = findViewById( R.id.tv_title_name );
-    Button btnNext = findViewById( R.id.btn_next );
+    Button btnNext = findViewById( R.id.btn_shopping_cart_next );
 
-    tvShoppingCart.setText( "購物車" );
     btnNext.setText( "下一步" );
 
     List<MenuItem> menuItems = new ArrayList<>();
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
 
-    ListView menuListView = findViewById( R.id.lv_menu_list );
-    menuListView.setAdapter( new MenuListViewAdapter( this, menuItems ) );
+    ListView menuListView = findViewById( R.id.lv_shopping_cart_list );
+    menuListView.setAdapter( new ShoppingCartListViewAdapter( this, menuItems ) );
 
     View.OnClickListener listener = view -> {
       Intent intent = new Intent( ShoppingCartActivity.this, PickUpTimeActivity.class );
