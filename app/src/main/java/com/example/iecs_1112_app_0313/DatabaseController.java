@@ -14,7 +14,7 @@ public class DatabaseController {
 
   public static void init( Context appContext ) throws IOException {
     String path = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DOWNLOADS )
-      .getPath() + "/AnyDish.db";
+      .getPath() + "/AnyDishes.db";
 
     // Create an empty file if it doesn't exist
     File file = new File( path );
