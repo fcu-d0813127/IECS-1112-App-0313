@@ -1,6 +1,7 @@
 package com.example.iecs_1112_app_0313;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -58,6 +60,12 @@ public class MenuListViewAdapter extends BaseAdapter {
     view.setOnClickListener( v -> {
       if ( context.getClass().getSimpleName().equals( "MenuActivity" ) ) {
         initPopupWindow( menuItem );
+      } else if ( context.getClass().getSimpleName().equals( "FoodEditActivity" ) ) {
+        Intent intent = new Intent( context, FoodDetailActivity.class );
+        intent.putExtra( "foodName", menuItem.getFoodName() );
+        intent.putExtra( "foodDescription", "Test" );
+        intent.putExtra( "foodPrice", String.valueOf( menuItem.getFoodPrice() ) );
+        context.startActivity( intent );
       }
     });
 

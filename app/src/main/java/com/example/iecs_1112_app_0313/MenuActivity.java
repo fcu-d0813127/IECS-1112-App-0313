@@ -2,11 +2,13 @@ package com.example.iecs_1112_app_0313;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -41,5 +43,26 @@ public class MenuActivity extends AppCompatActivity {
     };
 
     btnShoppingCart.setOnClickListener( listener );
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu( Menu menu ) {
+    getMenuInflater().inflate( R.menu.menu_main, menu );
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull android.view.MenuItem item) {
+    int id = item.getItemId();
+
+    if ( id == R.id.menu_add_food) {
+      Intent intent = new Intent( MenuActivity.this, FoodAddActivity.class );
+      startActivity( intent );
+    } else if ( id == R.id.menu_edit_food) {
+      Intent intent = new Intent( MenuActivity.this, FoodEditActivity.class );
+      startActivity( intent );
+    }
+
+    return true;
   }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_add_food"
+        android:title="新增餐點" />
+    <item
+        android:id="@+id/menu_edit_food"
+        android:title="編輯餐點"
+        app:showAsAction="never" />
+</menu>
