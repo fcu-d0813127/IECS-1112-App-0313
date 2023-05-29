@@ -1,4 +1,4 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.iecs_1112_app_0313.R;
 
 public class FoodDetailActivity extends AppCompatActivity {
 

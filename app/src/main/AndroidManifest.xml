@@ -12,31 +12,31 @@
         android:theme="@style/Theme.IECS1112App0313"
         tools:targetApi="31">
         <activity
-            android:name=".FoodDetailActivity"
+            android:name=".Activities.FoodDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".FoodEditActivity"
+            android:name=".Activities.FoodEditActivity"
             android:exported="false" />
         <activity
-            android:name=".FoodAddActivity"
+            android:name=".Activities.FoodAddActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailAfterCheckoutActivity"
+            android:name=".Activities.DetailAfterCheckoutActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailBeforeCheckoutActivity"
+            android:name=".Activities.DetailBeforeCheckoutActivity"
             android:exported="false" />
         <activity
-            android:name=".PickUpTimeActivity"
+            android:name=".Activities.PickUpTimeActivity"
             android:exported="false" />
         <activity
-            android:name=".ShoppingCartActivity"
+            android:name=".Activities.ShoppingCartActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".Activities.MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PickUpTimeActivity">
+    tools:context=".Activities.PickUpTimeActivity">
 
     <TextView
         android:id="@+id/tv_pick_up_time_title"

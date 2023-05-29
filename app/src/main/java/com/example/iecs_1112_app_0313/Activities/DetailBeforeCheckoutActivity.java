@@ -1,4 +1,4 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.iecs_1112_app_0313.R;
 
 public class DetailBeforeCheckoutActivity extends AppCompatActivity {
   private Context selfContext;

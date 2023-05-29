@@ -1,4 +1,4 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,8 +7,16 @@ import android.view.View;
 import android.widget.GridView;
 import android.widget.SearchView;
 
+import com.example.iecs_1112_app_0313.DatabaseController;
+import com.example.iecs_1112_app_0313.DatabaseModels.Store;
+import com.example.iecs_1112_app_0313.DatabaseRelations;
+import com.example.iecs_1112_app_0313.R;
+import com.example.iecs_1112_app_0313.Restaurant;
+import com.example.iecs_1112_app_0313.Adapters.RestaurantGridViewAdapter;
+
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +28,12 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_main );
+
+    try {
+      DatabaseController.init( this );
+    } catch ( IOException e ) {
+      throw new RuntimeException( e );
+    }
 
     // Data Source setup
     List<Restaurant> restaurants = new ArrayList<>();

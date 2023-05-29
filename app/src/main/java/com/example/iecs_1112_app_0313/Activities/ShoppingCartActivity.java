@@ -1,4 +1,4 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.iecs_1112_app_0313.Adapters.ShoppingCartListViewAdapter;
+import com.example.iecs_1112_app_0313.MenuItem;
+import com.example.iecs_1112_app_0313.R;
 
 import java.util.ArrayList;
 import java.util.List;

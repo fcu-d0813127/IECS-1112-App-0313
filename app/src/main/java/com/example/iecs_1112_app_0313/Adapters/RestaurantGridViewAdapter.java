@@ -1,4 +1,4 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +8,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.iecs_1112_app_0313.Activities.MenuActivity;
+import com.example.iecs_1112_app_0313.R;
+import com.example.iecs_1112_app_0313.Restaurant;
 
 import java.util.ArrayList;
 import java.util.Comparator;

@@ -1,10 +1,14 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.iecs_1112_app_0313.Adapters.MenuListViewAdapter;
+import com.example.iecs_1112_app_0313.MenuItem;
+import com.example.iecs_1112_app_0313.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.iecs_1112_app_0313.Activities.FoodDetailActivity;
+import com.example.iecs_1112_app_0313.MenuItem;
+import com.example.iecs_1112_app_0313.R;
 
 import java.util.List;
 
