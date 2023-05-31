@@ -13,7 +13,7 @@ public class DatabaseController {
   public static DatabaseRelations db;
 
   public static void init( Context appContext ) throws IOException {
-    String path = Environment.getExternalStoragePublicDirectory( Environment.DIRECTORY_DOWNLOADS )
+    String path = Environment.getExternalStorageDirectory()
       .getPath() + "/AnyDishes.db";
 
     // Create an empty file if it doesn't exist

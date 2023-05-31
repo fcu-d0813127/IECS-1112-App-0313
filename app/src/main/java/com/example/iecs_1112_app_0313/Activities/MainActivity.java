@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.View;
 import android.widget.GridView;
@@ -24,17 +26,39 @@ public class MainActivity extends AppCompatActivity {
   GridView restaurants_grid;
   SearchView restaurants_searchbar;
 
+  boolean main_invoked = false;
+
+  void mainSafe() {
+    if ( Environment.isExternalStorageManager() ) {
+      if ( !main_invoked ) {
+        main_invoked = true;
+        main();
+      }
+    } else {
+      Intent intent = new Intent( Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION );
+      this.startActivity( intent );
+    }
+  }
+
+  @Override
+  public void onRequestPermissionsResult( int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults ) {
+    super.onRequestPermissionsResult( requestCode, permissions, grantResults );
+    mainSafe();
+  }
+
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_main );
+    mainSafe();
+  }
 
+  private void main() {
     try {
       DatabaseController.init( this );
     } catch ( IOException e ) {
       throw new RuntimeException( e );
     }
-
     // Data Source setup
     List<Store> stores = DatabaseController.db.storeDao().getAll();
 //    List<Restaurant> restaurants = new ArrayList<>();
@@ -84,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
         restaurants_searchbar.clearFocus();
       });
   }
+
   @Override
   public boolean onCreateOptionsMenu( Menu menu ) {
     getMenuInflater().inflate( R.menu.store_main, menu );
@@ -91,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
   }
 
   @Override
-  public boolean onOptionsItemSelected(@NonNull android.view.MenuItem item) {
+  public boolean onOptionsItemSelected( @NonNull android.view.MenuItem item ) {
     int id = item.getItemId();
 
     if ( id == R.id.store_add) {
@@ -109,7 +134,12 @@ public class MainActivity extends AppCompatActivity {
   protected void onRestart() {
     super.onRestart();
 
-    // Refresh the list
+    if ( !Environment.isExternalStorageManager() || !main_invoked ) {
+      mainSafe();
+      return;
+    }
+
+      // Refresh the list
     List<Store> stores = DatabaseController.db.storeDao().getAll();
     restaurants_grid.setAdapter( new RestaurantGridViewAdapter( this, stores ) );
   }
