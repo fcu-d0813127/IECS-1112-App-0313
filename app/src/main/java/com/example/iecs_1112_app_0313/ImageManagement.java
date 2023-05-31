@@ -8,6 +8,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.security.NoSuchAlgorithmException;
 
 public interface ImageManagement {
@@ -45,6 +47,10 @@ public interface ImageManagement {
 
   static String saveImage( Bitmap image ) {
     String image_path = getImagePath( bitmap2Bytes( image ) );
+    
+    // Prevent writing to duplicated file
+    if ( Files.exists( Paths.get( image_path ) ) ) return image_path;
+
     try ( FileOutputStream file = new FileOutputStream( image_path ) ) {
       image.compress( Bitmap.CompressFormat.PNG, 100, file );
     } catch ( IOException e ) {
