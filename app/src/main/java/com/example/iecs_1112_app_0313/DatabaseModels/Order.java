@@ -10,6 +10,9 @@ public class Order {
   @PrimaryKey( autoGenerate = true )
   public int id;
 
+  @ColumnInfo( name = "order_id" )
+  public int order_id;
+
   @ColumnInfo( name = "food_id" )
   public int food_id;
 
@@ -19,7 +22,8 @@ public class Order {
   @ColumnInfo( name = "pick_up_time" )
   public int pick_up_time;
 
-  public Order( int food_id, int quantity, int pick_up_time ) {
+  public Order( int order_id, int food_id, int quantity, int pick_up_time ) {
+    this.order_id = order_id;
     this.food_id = food_id;
     this.quantity = quantity;
     this.pick_up_time = pick_up_time;

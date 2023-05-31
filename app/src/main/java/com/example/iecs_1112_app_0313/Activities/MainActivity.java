@@ -14,12 +14,15 @@ import android.widget.SearchView;
 
 import com.example.iecs_1112_app_0313.DatabaseController;
 import com.example.iecs_1112_app_0313.DatabaseModels.Store;
+import com.example.iecs_1112_app_0313.ImageManagement;
 import com.example.iecs_1112_app_0313.R;
 import com.example.iecs_1112_app_0313.Adapters.RestaurantGridViewAdapter;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
   private void main() {
     try {
       DatabaseController.init( this );
+      Files.createDirectories( Paths.get( ImageManagement.image_base_path ) );
     } catch ( IOException e ) {
       throw new RuntimeException( e );
     }

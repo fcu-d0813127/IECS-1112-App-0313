@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.iecs_1112_app_0313.Activities.MenuActivity;
+import com.example.iecs_1112_app_0313.DatabaseController;
+import com.example.iecs_1112_app_0313.ImageManagement;
 import com.example.iecs_1112_app_0313.R;
 import com.example.iecs_1112_app_0313.DatabaseModels.Store;
 
@@ -25,7 +27,7 @@ class RestraurantSearchResult {
   Store store;
   int similarity;
 
-  public RestraurantSearchResult(Store store, int similarity ) {
+  public RestraurantSearchResult( Store store, int similarity ) {
     this.store = store;
     this.similarity = similarity;
   }
@@ -37,10 +39,10 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
   List<Store> restaurants_view;
   LayoutInflater inflater;
 
-  public RestaurantGridViewAdapter( Context context, List<Store> stores) {
+  public RestaurantGridViewAdapter( Context context, List<Store> stores ) {
     this.context = context;
     this.stores = stores;
-    this.restaurants_view = new ArrayList<>(stores);
+    this.restaurants_view = new ArrayList<>( stores );
     this.inflater = LayoutInflater.from( this.context );
   }
 
@@ -51,7 +53,7 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
 
   @Override
   public Object getItem( int i ) {
-    return restaurants_view.get(i);
+    return restaurants_view.get( i );
   }
 
   @Override
@@ -70,7 +72,7 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
     TextView restaurant_name = view.findViewById( R.id.restaurant_name );
     ImageView restaurant_logo = view.findViewById( R.id.restaurant_logo );
 
-    Bitmap bitmap = BitmapFactory.decodeByteArray( store.image, 0, store.image.length );
+    Bitmap bitmap = ImageManagement.loadImage( store.image_path );
     restaurant_logo.setImageBitmap( bitmap );
     restaurant_logo.setScaleType( ImageView.ScaleType.CENTER_CROP );
 
@@ -81,7 +83,7 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
       Intent intent = new Intent( context, MenuActivity.class );
       intent.putExtra( "restaurant_name", store.name );
       context.startActivity( intent );
-    });
+    } );
 
     return view;
   }
@@ -89,21 +91,21 @@ public class RestaurantGridViewAdapter extends BaseAdapter {
   // Perform Fuzzy Search on restaurants against the specified keyword
   public void filter( String keyword ) {
     if ( keyword == null || keyword.isEmpty() ) {
-      restaurants_view = new ArrayList<>(stores);
+      restaurants_view = new ArrayList<>( stores );
     } else {
       ArrayList<RestraurantSearchResult> search_results = new ArrayList<>();
       String keyword_lowercase = keyword.toLowerCase();
 
-      for ( Store store : stores) {
+      for ( Store store : stores ) {
         int similarity = FuzzySearch.weightedRatio( store.name.toLowerCase(), keyword_lowercase );
         if ( similarity == 0 ) continue;
-        search_results.add( new RestraurantSearchResult(store, similarity ) );
+        search_results.add( new RestraurantSearchResult( store, similarity ) );
       }
       search_results.sort( Comparator.comparingInt( restaurant -> ( ( RestraurantSearchResult ) restaurant ).similarity ).reversed() );
 
       restaurants_view.clear();
       for ( RestraurantSearchResult search_result : search_results ) {
-        restaurants_view.add( search_result.store);
+        restaurants_view.add( search_result.store );
       }
     }
     this.notifyDataSetChanged();

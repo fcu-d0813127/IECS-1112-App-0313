@@ -18,6 +18,7 @@ import com.example.iecs_1112_app_0313.R;
 
 public class StoreAddActivity extends AppCompatActivity {
   private ActivityResultLauncher<String> imagePickerLauncher;
+  String image_path;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
@@ -35,6 +36,7 @@ public class StoreAddActivity extends AppCompatActivity {
       new ActivityResultContracts.GetContent(),
       result -> {
         if ( result != null ) {
+          image_path = String.valueOf( result );
           imageView.setImageURI( result );
         }
       }
@@ -50,7 +52,7 @@ public class StoreAddActivity extends AppCompatActivity {
       DatabaseController.db.storeDao().insert(
         new Store(
           etStoreName.getText().toString(),
-          bitmap
+          image_path
         )
       );
 

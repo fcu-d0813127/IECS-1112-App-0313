@@ -14,7 +14,7 @@ public interface OrderDao {
   @Query( "SELECT * FROM orders" )
   List<Order> getAll();
 
-  @Query( "SELECT * FROM orders WHERE id = :order_id LIMIT 1" )
+  @Query( "SELECT * FROM orders WHERE order_id = :order_id LIMIT 1" )
   List<Order> getById( int order_id );
 
   @Insert( onConflict = OnConflictStrategy.REPLACE )
@@ -24,5 +24,5 @@ public interface OrderDao {
   void delete( Order order );
 
   @Update( entity = Order.class )
-  void edit( Order order );
+  void update( Order order );
 }

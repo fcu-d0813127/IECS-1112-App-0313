@@ -15,10 +15,13 @@ public interface StoreDao {
   List<Store> getAll();
 
   @Query( "SELECT * FROM store WHERE id = :store_id LIMIT 1" )
-  List<Store> getById( int store_id );
+  Store getById( int store_id );
 
-  @Query( "SELECT * FROM store WHERE name = :store_name LIMIT 1" )
-  Store findByName( String store_name );
+  @Query( "SELECT * FROM store WHERE image_path = :image_path" )
+  List<Store> findByImagePath( String image_path );
+
+  @Query( "SELECT * FROM store WHERE name = :store_name" )
+  List<Store> findByName( String store_name );
 
   @Insert( onConflict = OnConflictStrategy.REPLACE )
   void insert( Store store );
@@ -27,5 +30,5 @@ public interface StoreDao {
   void delete( Store store );
 
   @Update( entity = Store.class )
-  void edit( Store store );
+  void update( Store store );
 }

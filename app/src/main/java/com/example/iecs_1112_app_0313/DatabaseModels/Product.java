@@ -7,6 +7,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.example.iecs_1112_app_0313.ImageManagement;
+
 import java.nio.ByteBuffer;
 
 @Entity( tableName = "product" )
@@ -26,8 +28,8 @@ public class Product {
   @ColumnInfo( name = "description" )
   public String description;
 
-  @ColumnInfo( name = "image", typeAffinity = ColumnInfo.BLOB )
-  public byte[] image;
+  @ColumnInfo( name = "image_path" )
+  public String image_path;
 
   @Ignore
   public Product( int store_id, String name, int price ) {
@@ -44,24 +46,11 @@ public class Product {
     this.description = description;
   }
 
-  @Ignore
-  public Product( int store_id, String name, int price, String description, Bitmap bitmap ) {
-    int size = bitmap.getRowBytes() * bitmap.getHeight();
-    ByteBuffer buffer = ByteBuffer.allocate( size );
-    bitmap.copyPixelsToBuffer( buffer );
-
+  public Product( int store_id, String name, int price, String description, String image_path ) {
     this.store_id = store_id;
     this.name = name;
     this.price = price;
     this.description = description;
-    this.image = buffer.array();
-  }
-
-  public Product( int store_id, String name, int price, String description, byte[] image ) {
-    this.store_id = store_id;
-    this.name = name;
-    this.price = price;
-    this.description = description;
-    this.image = image;
+    this.image_path = image_path;
   }
 }
