@@ -1,23 +1,23 @@
 package com.example.iecs_1112_app_0313.Activities;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.SearchView;
 
 import com.example.iecs_1112_app_0313.DatabaseController;
 import com.example.iecs_1112_app_0313.DatabaseModels.Store;
-import com.example.iecs_1112_app_0313.DatabaseRelations;
 import com.example.iecs_1112_app_0313.R;
-import com.example.iecs_1112_app_0313.Restaurant;
 import com.example.iecs_1112_app_0313.Adapters.RestaurantGridViewAdapter;
 
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,15 +36,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Data Source setup
-    List<Restaurant> restaurants = new ArrayList<>();
-    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "7-11" ) );
-    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "Family Mart" ) );
-    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "OK Mart" ) );
-    for ( int i = 0; i < 10; ++i ) restaurants.add( new Restaurant( R.drawable.ic_launcher_background, String.format( "Test_%d",i ) ) );
+    List<Store> stores = DatabaseController.db.storeDao().getAll();
+//    List<Restaurant> restaurants = new ArrayList<>();
+//    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "7-11" ) );
+//    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "Family Mart" ) );
+//    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "OK Mart" ) );
+//    for ( int i = 0; i < 10; ++i ) restaurants.add( new Restaurant( R.drawable.ic_launcher_background, String.format( "Test_%d",i ) ) );
 
     // Grid View setup
     restaurants_grid = findViewById( R.id.restaurants_grid );
-    restaurants_grid.setAdapter( new RestaurantGridViewAdapter( this, restaurants ) );
+    restaurants_grid.setAdapter( new RestaurantGridViewAdapter( this, stores ) );
 
     // Search View setup
     restaurants_searchbar = findViewById( R.id.restaurants_searchbar );
@@ -82,5 +83,34 @@ public class MainActivity extends AppCompatActivity {
         if ( is_keyboard_open ) return;
         restaurants_searchbar.clearFocus();
       });
+  }
+  @Override
+  public boolean onCreateOptionsMenu( Menu menu ) {
+    getMenuInflater().inflate( R.menu.store_main, menu );
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(@NonNull android.view.MenuItem item) {
+    int id = item.getItemId();
+
+    if ( id == R.id.store_add) {
+      Intent intent = new Intent( MainActivity.this, StoreAddActivity.class );
+      startActivity( intent );
+    } else if ( id == R.id.store_edit ) {
+      Intent intent = new Intent( MainActivity.this, FoodEditActivity.class );
+      startActivity( intent );
+    }
+
+    return true;
+  }
+
+  @Override
+  protected void onRestart() {
+    super.onRestart();
+
+    // Refresh the list
+    List<Store> stores = DatabaseController.db.storeDao().getAll();
+    restaurants_grid.setAdapter( new RestaurantGridViewAdapter( this, stores ) );
   }
 }

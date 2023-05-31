@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iecs_1112_app_0313.Adapters.MenuListViewAdapter;
+import com.example.iecs_1112_app_0313.DatabaseController;
+import com.example.iecs_1112_app_0313.DatabaseModels.Product;
 import com.example.iecs_1112_app_0313.MenuItem;
 import com.example.iecs_1112_app_0313.R;
 
@@ -33,13 +35,16 @@ public class MenuActivity extends AppCompatActivity {
     TextView restaurantName = findViewById( R.id.tv_title_name );
     restaurantName.setText( intent.getStringExtra( "restaurant_name" ) );
 
-    List<MenuItem> menuItems = new ArrayList<>();
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
+    // 從資料庫獲取所有資料
+    List<Product> products = DatabaseController.db.productDao().getAll();
+
+//    List<MenuItem> menuItems = new ArrayList<>();
+//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
+//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
+//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
 
     ListView menuListView = findViewById( R.id.lv_menu_list );
-    menuListView.setAdapter( new MenuListViewAdapter( this, menuItems ) );
+    menuListView.setAdapter( new MenuListViewAdapter( this, products ) );
 
     View.OnClickListener listener = view -> {
       Intent shoppingCartIntent = new Intent( MenuActivity.this, ShoppingCartActivity.class );

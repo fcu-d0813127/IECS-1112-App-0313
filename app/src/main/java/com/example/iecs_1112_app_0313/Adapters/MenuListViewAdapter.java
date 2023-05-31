@@ -13,6 +13,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.iecs_1112_app_0313.Activities.FoodDetailActivity;
+import com.example.iecs_1112_app_0313.DatabaseModels.Product;
 import com.example.iecs_1112_app_0313.MenuItem;
 import com.example.iecs_1112_app_0313.R;
 
@@ -20,17 +21,17 @@ import java.util.List;
 
 public class MenuListViewAdapter extends BaseAdapter {
   private final Context context;
-  private final List<MenuItem> menuItems;
+  private final List<Product> products;
   private PopupWindow foodPopupWindow = null;
 
-  public MenuListViewAdapter( Context context, List<MenuItem> menuItems ) {
+  public MenuListViewAdapter( Context context, List<Product> products ) {
     this.context = context;
-    this.menuItems = menuItems;
+    this.products = products;
   }
 
   @Override
   public int getCount() {
-    return menuItems.size();
+    return products.size();
   }
 
   @Override
@@ -49,25 +50,25 @@ public class MenuListViewAdapter extends BaseAdapter {
       view = LayoutInflater.from( context ).inflate( R.layout.menu_layout, viewGroup, false );
     }
 
-    MenuItem menuItem = menuItems.get( i );
+    Product product = products.get( i );
 
     ImageView imageView = view.findViewById( R.id.imageView );
-    imageView.setImageResource( menuItem.getImageId() );
+//    imageView.setImageResource( menuItem.getImageId() );
 
     TextView foodName = view.findViewById( R.id.tv_food_name );
-    foodName.setText( menuItem.getFoodName() );
+    foodName.setText( product.name );
 
     TextView foodPrice = view.findViewById( R.id.tv_food_price );
-    foodPrice.setText( String.valueOf( menuItem.getFoodPrice() ) );
+    foodPrice.setText( String.valueOf( product.price ) );
 
     view.setOnClickListener( v -> {
       if ( context.getClass().getSimpleName().equals( "MenuActivity" ) ) {
-        initPopupWindow( menuItem );
+        initPopupWindow( product );
       } else if ( context.getClass().getSimpleName().equals( "FoodEditActivity" ) ) {
         Intent intent = new Intent( context, FoodDetailActivity.class );
-        intent.putExtra( "foodName", menuItem.getFoodName() );
+        intent.putExtra( "foodName", product.name );
         intent.putExtra( "foodDescription", "Test" );
-        intent.putExtra( "foodPrice", String.valueOf( menuItem.getFoodPrice() ) );
+        intent.putExtra( "foodPrice", String.valueOf( product.price ) );
         context.startActivity( intent );
       }
     });
@@ -75,7 +76,7 @@ public class MenuListViewAdapter extends BaseAdapter {
     return view;
   }
 
-  private void initPopupWindow( MenuItem menuItem ) {
+  private void initPopupWindow( Product product ) {
     if ( foodPopupWindow != null ) {
       return;
     }
@@ -84,10 +85,10 @@ public class MenuListViewAdapter extends BaseAdapter {
     foodPopupWindow = new PopupWindow( view );
 
     TextView foodName = view.findViewById( R.id.tv_popup_food_name );
-    foodName.setText( menuItem.getFoodName() );
+    foodName.setText( product.name );
 
     ImageView foodImage = view.findViewById( R.id.iv_popup_food_image );
-    foodImage.setImageResource( menuItem.getImageId() );
+//    foodImage.setImageResource( menuItem.getImageId() );
 
     // 設定視窗大小與位置
     foodPopupWindow.setHeight( ViewGroup.LayoutParams.WRAP_CONTENT );

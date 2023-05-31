@@ -7,6 +7,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.iecs_1112_app_0313.Adapters.MenuListViewAdapter;
+import com.example.iecs_1112_app_0313.DatabaseController;
+import com.example.iecs_1112_app_0313.DatabaseModels.Product;
 import com.example.iecs_1112_app_0313.MenuItem;
 import com.example.iecs_1112_app_0313.R;
 
@@ -20,13 +22,15 @@ public class FoodEditActivity extends AppCompatActivity {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_food_edit );
 
-    List<MenuItem> menuItems = new ArrayList<>();
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 200 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 300 ) );
+    List<Product> products = DatabaseController.db.productDao().getAll();
+
+//    List<MenuItem> menuItems = new ArrayList<>();
+//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
+//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 200 ) );
+//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 300 ) );
 
     ListView menuListView = findViewById( R.id.lv_food_edit_list );
-    menuListView.setAdapter( new MenuListViewAdapter( this, menuItems ) );
+    menuListView.setAdapter( new MenuListViewAdapter( this, products ) );
   }
 
   @Override
