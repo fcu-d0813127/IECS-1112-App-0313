@@ -65,11 +65,6 @@ public class MainActivity extends AppCompatActivity {
     }
     // Data Source setup
     List<Store> stores = DatabaseController.db.storeDao().getAll();
-//    List<Restaurant> restaurants = new ArrayList<>();
-//    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "7-11" ) );
-//    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "Family Mart" ) );
-//    restaurants.add( new Restaurant( R.drawable.ic_launcher_background, "OK Mart" ) );
-//    for ( int i = 0; i < 10; ++i ) restaurants.add( new Restaurant( R.drawable.ic_launcher_background, String.format( "Test_%d",i ) ) );
 
     // Grid View setup
     restaurants_grid = findViewById( R.id.restaurants_grid );
@@ -127,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
       Intent intent = new Intent( MainActivity.this, StoreAddActivity.class );
       startActivity( intent );
     } else if ( id == R.id.store_edit ) {
-      Intent intent = new Intent( MainActivity.this, FoodEditActivity.class );
+      Intent intent = new Intent( MainActivity.this, StoreListActivity.class );
       startActivity( intent );
     }
 
@@ -143,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
       return;
     }
 
-      // Refresh the list
+    // Refresh the list
     List<Store> stores = DatabaseController.db.storeDao().getAll();
     restaurants_grid.setAdapter( new RestaurantGridViewAdapter( this, stores ) );
   }

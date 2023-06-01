@@ -17,10 +17,8 @@ public interface ImageManagement {
 
   static byte[] bitmap2Bytes( Bitmap image ) {
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    image.compress( Bitmap.CompressFormat.PNG, 100, stream );
-    byte[] image_bytes = stream.toByteArray();
-    image.recycle();
-    return image_bytes;
+    image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+    return stream.toByteArray();
   }
 
   static String getMD5( byte[] data ) {

@@ -18,21 +18,29 @@ import com.example.iecs_1112_app_0313.R;
 
 import java.io.FileNotFoundException;
 
-public class StoreAddActivity extends AppCompatActivity {
+public class StoreEditActivity extends AppCompatActivity {
   private ActivityResultLauncher<String> imagePickerLauncher;
-  String image_path;
+  private String image_path;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
-    setContentView( R.layout.activity_store_add );
+    setContentView( R.layout.activity_store_edit );
 
-    EditText etStoreName = findViewById( R.id.et_store_name );
+    EditText etStoreName = findViewById( R.id.et_edit_store_name );
+    ImageView ivStoreImage = findViewById( R.id.iv_edit_store_image );
+    Button btnStoreUpdate = findViewById( R.id.btn_edit_store_update );
+    Button btnStoreCancel = findViewById( R.id.btn_edit_store_cancel );
+    Button btnImageUpload = findViewById( R.id.btn_edit_store_upload );
 
-    ImageView imageView = findViewById( R.id.iv_store_preview );
+    // Get store data
+    int store_id = getIntent().getIntExtra( "store_id", -1 );
+    Store store = DatabaseController.db.storeDao().getById( store_id );
 
-    Button btnUpload = findViewById( R.id.btn_store_upload_image );
-    Button btnAddStore = findViewById( R.id.btn_add_store );
+    etStoreName.setText( store.name );
+    image_path = store.image_path;
+    Bitmap currentBitmap = ImageManagement.loadImage( image_path );
+    ivStoreImage.setImageBitmap( currentBitmap );
 
     imagePickerLauncher = registerForActivityResult(
       new ActivityResultContracts.GetContent(),
@@ -49,22 +57,20 @@ public class StoreAddActivity extends AppCompatActivity {
           }
 
           image_path = ImageManagement.saveImage( bitmap );
-          imageView.setImageURI( result );
+          ivStoreImage.setImageURI( result );
         }
       }
     );
 
-    btnUpload.setOnClickListener( v -> imagePickerLauncher.launch( "image/*" ));
-
-    btnAddStore.setOnClickListener( v -> {
-      DatabaseController.db.storeDao().insert(
-        new Store(
-          etStoreName.getText().toString(),
-          image_path
-        )
-      );
-
+    btnStoreUpdate.setOnClickListener( v -> {
+      store.name = etStoreName.getText().toString();
+      store.image_path = image_path;
+      DatabaseController.updateStore( store );
       finish();
     });
+
+    btnStoreCancel.setOnClickListener( v -> finish() );
+
+    btnImageUpload.setOnClickListener( v -> imagePickerLauncher.launch( "image/*" ) );
   }
 }
