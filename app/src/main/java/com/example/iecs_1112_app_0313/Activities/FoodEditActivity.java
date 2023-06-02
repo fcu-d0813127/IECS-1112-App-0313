@@ -1,41 +1,41 @@
 package com.example.iecs_1112_app_0313.Activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.iecs_1112_app_0313.Adapters.MenuListViewAdapter;
 import com.example.iecs_1112_app_0313.DatabaseController;
 import com.example.iecs_1112_app_0313.DatabaseModels.Product;
-import com.example.iecs_1112_app_0313.MenuItem;
 import com.example.iecs_1112_app_0313.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FoodEditActivity extends AppCompatActivity {
+  private ListView menuListView;
+  private int storeId;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_food_edit );
 
-    List<Product> products = DatabaseController.db.productDao().getAll();
+    storeId = getIntent().getIntExtra( "store_id", 0 );
 
-//    List<MenuItem> menuItems = new ArrayList<>();
-//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 100 ) );
-//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 200 ) );
-//    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Home", 300 ) );
+    menuListView = findViewById( R.id.lv_food_edit_list );
 
-    ListView menuListView = findViewById( R.id.lv_food_edit_list );
-    menuListView.setAdapter( new MenuListViewAdapter( this, products ) );
+    refreshListView();
   }
 
   @Override
   protected void onRestart() {
     super.onRestart();
-    Toast.makeText( this, "onRestart", Toast.LENGTH_SHORT ).show();
+    refreshListView();
+  }
+
+  private void refreshListView() {
+    List<Product> products = DatabaseController.db.productDao().getAll( storeId );
+    menuListView.setAdapter( new MenuListViewAdapter( this, products ) );
   }
 }

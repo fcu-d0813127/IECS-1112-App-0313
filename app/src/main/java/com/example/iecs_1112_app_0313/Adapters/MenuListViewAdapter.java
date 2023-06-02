@@ -2,6 +2,7 @@ package com.example.iecs_1112_app_0313.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.iecs_1112_app_0313.Activities.FoodDetailActivity;
 import com.example.iecs_1112_app_0313.DatabaseModels.Product;
-import com.example.iecs_1112_app_0313.MenuItem;
+import com.example.iecs_1112_app_0313.ImageManagement;
 import com.example.iecs_1112_app_0313.R;
 
 import java.util.List;
@@ -53,7 +54,8 @@ public class MenuListViewAdapter extends BaseAdapter {
     Product product = products.get( i );
 
     ImageView imageView = view.findViewById( R.id.imageView );
-//    imageView.setImageResource( menuItem.getImageId() );
+    Bitmap bitmap = ImageManagement.loadImage( product.image_path );
+    imageView.setImageBitmap( bitmap );
 
     TextView foodName = view.findViewById( R.id.tv_food_name );
     foodName.setText( product.name );
@@ -66,9 +68,8 @@ public class MenuListViewAdapter extends BaseAdapter {
         initPopupWindow( product );
       } else if ( context.getClass().getSimpleName().equals( "FoodEditActivity" ) ) {
         Intent intent = new Intent( context, FoodDetailActivity.class );
-        intent.putExtra( "foodName", product.name );
-        intent.putExtra( "foodDescription", "Test" );
-        intent.putExtra( "foodPrice", String.valueOf( product.price ) );
+        int id = product.id;
+        intent.putExtra( "product_id", id );
         context.startActivity( intent );
       }
     });
@@ -88,7 +89,11 @@ public class MenuListViewAdapter extends BaseAdapter {
     foodName.setText( product.name );
 
     ImageView foodImage = view.findViewById( R.id.iv_popup_food_image );
-//    foodImage.setImageResource( menuItem.getImageId() );
+    Bitmap bitmap = ImageManagement.loadImage( product.image_path );
+    foodImage.setImageBitmap( bitmap );
+
+    TextView foodDescription = view.findViewById( R.id.tv_popup_description );
+    foodDescription.setText( "餐點描述\n" + product.description );
 
     // 設定視窗大小與位置
     foodPopupWindow.setHeight( ViewGroup.LayoutParams.WRAP_CONTENT );

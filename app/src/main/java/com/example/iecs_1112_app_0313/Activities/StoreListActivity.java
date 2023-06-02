@@ -15,16 +15,36 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StoreListActivity extends AppCompatActivity {
+  private ListView listView;
+  private List<Store> stores;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
     super.onCreate( savedInstanceState );
     setContentView( R.layout.activity_store_list );
 
-    ListView listView = findViewById( R.id.lv_store_list );
+    listView = findViewById( R.id.lv_store_list );
 
+    refreshListView();
+
+    // Set listview onclick listener
+    listView.setOnItemClickListener( ( parent, view, position, id ) -> {
+      Intent intent = new Intent( StoreListActivity.this, StoreEditActivity.class );
+      intent.putExtra( "store_id", stores.get( position ).id );
+      startActivity( intent );
+    });
+  }
+
+  @Override
+  protected void onRestart() {
+    super.onRestart();
+
+    refreshListView();
+  }
+
+  private void refreshListView() {
     // Get data from database
-    List<Store> stores = DatabaseController.db.storeDao().getAll();
+    stores = DatabaseController.db.storeDao().getAll();
 
     // Extract names to string list
     List<String> storeNames = new ArrayList<>();
@@ -35,12 +55,5 @@ public class StoreListActivity extends AppCompatActivity {
     // Set listview adapter
     ArrayAdapter<String> adapter = new ArrayAdapter<>( this, android.R.layout.simple_list_item_1, storeNames );
     listView.setAdapter( adapter );
-
-    // Set listview onclick listener
-    listView.setOnItemClickListener( ( parent, view, position, id ) -> {
-      Intent intent = new Intent( StoreListActivity.this, StoreEditActivity.class );
-      intent.putExtra( "store_id", stores.get( position ).id );
-      startActivity( intent );
-    });
   }
 }

@@ -11,8 +11,8 @@ import java.util.List;
 
 @Dao
 public interface ProductDao {
-  @Query( "SELECT * FROM product" )
-  List<Product> getAll();
+  @Query( "SELECT * FROM product WHERE store_id = :store_id" )
+  List<Product> getAll( int store_id );
 
   @Query( "SELECT * FROM product WHERE id = :product_id LIMIT 1" )
   Product getById( int product_id );

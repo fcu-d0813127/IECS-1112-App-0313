@@ -32,6 +32,7 @@ public class StoreEditActivity extends AppCompatActivity {
     Button btnStoreUpdate = findViewById( R.id.btn_edit_store_update );
     Button btnStoreCancel = findViewById( R.id.btn_edit_store_cancel );
     Button btnImageUpload = findViewById( R.id.btn_edit_store_upload );
+    Button btnStoreDelete = findViewById( R.id.btn_edit_store_delete );
 
     // Get store data
     int store_id = getIntent().getIntExtra( "store_id", -1 );
@@ -72,5 +73,10 @@ public class StoreEditActivity extends AppCompatActivity {
     btnStoreCancel.setOnClickListener( v -> finish() );
 
     btnImageUpload.setOnClickListener( v -> imagePickerLauncher.launch( "image/*" ) );
+
+    btnStoreDelete.setOnClickListener( v -> {
+      DatabaseController.deleteStore( store );
+      finish();
+    });
   }
 }
