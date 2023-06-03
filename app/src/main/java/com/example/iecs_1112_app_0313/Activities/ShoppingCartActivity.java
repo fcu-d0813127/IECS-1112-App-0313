@@ -31,6 +31,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
     menuListView.setAdapter( new ShoppingCartListViewAdapter( this, menuItems ) );
 
     View.OnClickListener listener = view -> {
+      if ( menuItems.size() == 0 ) {
+        return;
+      }
+
       Intent intent = new Intent( ShoppingCartActivity.this, PickUpTimeActivity.class );
       startActivity( intent );
     };
