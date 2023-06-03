@@ -2,6 +2,9 @@ package com.example.iecs_1112_app_0313;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
 import android.os.Environment;
 
 import java.io.ByteArrayOutputStream;
@@ -17,7 +20,25 @@ public interface ImageManagement {
 
   static Bitmap rescaleToWidth( Bitmap image, int new_width ) {
     int new_height = Math.round( ( float ) new_width / 4 * 3 );
-    return Bitmap.createScaledBitmap( image, new_width, new_height, false );
+
+    // Create a new bitmap with white background
+    Bitmap rescaledBitmap = Bitmap.createBitmap( new_width, new_height, Bitmap.Config.ARGB_8888 );
+    rescaledBitmap.eraseColor( Color.WHITE );
+
+    // Create a new canvas
+    Canvas canvas = new Canvas( rescaledBitmap );
+
+    // Calculate the scaling factors
+    float scaleWidth = ( ( float ) new_width ) / image.getWidth();
+    float scaleHeight = ( ( float ) new_height ) / image.getHeight();
+
+    // Set scale Matrix
+    Matrix matrix = new Matrix();
+    matrix.setScale( scaleWidth, scaleHeight );
+
+    // Draw the rescaled image
+    canvas.drawBitmap( image, matrix, null );
+    return rescaledBitmap;
   }
 
   static byte[] bitmap2Bytes( Bitmap image ) {
