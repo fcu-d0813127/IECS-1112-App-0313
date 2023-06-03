@@ -15,8 +15,15 @@ import java.security.NoSuchAlgorithmException;
 public interface ImageManagement {
   String image_base_path = Environment.getExternalStorageDirectory().getPath() + "/AnyDishes/user_images/";
 
+  static Bitmap rescaleToWidth( Bitmap image, int new_width ) {
+    float aspect_ratio = image.getWidth() / ( float ) image.getHeight();
+    int new_height = Math.round( new_width / aspect_ratio );
+    return Bitmap.createScaledBitmap( image, new_width, new_height, false );
+  }
+
   static byte[] bitmap2Bytes( Bitmap image ) {
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    image = rescaleToWidth( image, 300 );
     image.compress( Bitmap.CompressFormat.JPEG, 80, stream );
     return stream.toByteArray();
   }
@@ -51,6 +58,7 @@ public interface ImageManagement {
     if ( Files.exists( Paths.get( image_path ) ) ) return image_path;
 
     try ( FileOutputStream file = new FileOutputStream( image_path ) ) {
+      image = rescaleToWidth( image, 300 );
       image.compress( Bitmap.CompressFormat.JPEG, 80, file );
     } catch ( IOException e ) {
       throw new RuntimeException( e );
