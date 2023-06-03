@@ -20,7 +20,7 @@ import java.io.FileNotFoundException;
 
 public class FoodAddActivity extends AppCompatActivity {
   private ActivityResultLauncher<String> imagePickerLauncher;
-  private String image_path;
+  private Bitmap new_bitmap;
   private int store_id;
 
   @Override
@@ -42,16 +42,14 @@ public class FoodAddActivity extends AppCompatActivity {
       result -> {
         if ( result != null ) {
           // Change uri to bitmap
-          Bitmap bitmap;
           try {
-            bitmap = BitmapFactory.decodeStream(
+            new_bitmap = BitmapFactory.decodeStream(
               getContentResolver().openInputStream( result )
             );
           } catch ( FileNotFoundException e ) {
             throw new RuntimeException( e );
           }
 
-          image_path = ImageManagement.saveImage( bitmap );
           foodImage.setImageURI( result );
         }
       }
@@ -64,7 +62,7 @@ public class FoodAddActivity extends AppCompatActivity {
           foodName.getText().toString(),
           Integer.parseInt( foodPrice.getText().toString() ),
           foodDescription.getText().toString(),
-          image_path
+          ImageManagement.saveImage( new_bitmap )
         )
       );
 

@@ -20,7 +20,7 @@ import java.io.FileNotFoundException;
 
 public class StoreAddActivity extends AppCompatActivity {
   private ActivityResultLauncher<String> imagePickerLauncher;
-  String image_path;
+  Bitmap bitmap;
 
   @Override
   protected void onCreate( Bundle savedInstanceState ) {
@@ -39,7 +39,6 @@ public class StoreAddActivity extends AppCompatActivity {
       result -> {
         if ( result != null ) {
           // Change uri to bitmap
-          Bitmap bitmap;
           try {
             bitmap = BitmapFactory.decodeStream(
               getContentResolver().openInputStream( result )
@@ -48,7 +47,6 @@ public class StoreAddActivity extends AppCompatActivity {
             throw new RuntimeException( e );
           }
 
-          image_path = ImageManagement.saveImage( bitmap );
           imageView.setImageURI( result );
         }
       }
@@ -60,7 +58,7 @@ public class StoreAddActivity extends AppCompatActivity {
       DatabaseController.db.storeDao().insert(
         new Store(
           etStoreName.getText().toString(),
-          image_path
+          ImageManagement.saveImage( bitmap )
         )
       );
 
