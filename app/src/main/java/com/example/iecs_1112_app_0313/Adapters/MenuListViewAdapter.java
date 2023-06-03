@@ -1,6 +1,8 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,21 +13,27 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.iecs_1112_app_0313.Activities.FoodDetailActivity;
+import com.example.iecs_1112_app_0313.DatabaseModels.Product;
+import com.example.iecs_1112_app_0313.ImageManagement;
+import com.example.iecs_1112_app_0313.MenuItem;
+import com.example.iecs_1112_app_0313.R;
+
 import java.util.List;
 
 public class MenuListViewAdapter extends BaseAdapter {
   private final Context context;
-  private final List<MenuItem> menuItems;
+  private final List<Product> products;
   private PopupWindow foodPopupWindow = null;
 
-  public MenuListViewAdapter( Context context, List<MenuItem> menuItems ) {
+  public MenuListViewAdapter( Context context, List<Product> products ) {
     this.context = context;
-    this.menuItems = menuItems;
+    this.products = products;
   }
 
   @Override
   public int getCount() {
-    return menuItems.size();
+    return products.size();
   }
 
   @Override
@@ -44,27 +52,33 @@ public class MenuListViewAdapter extends BaseAdapter {
       view = LayoutInflater.from( context ).inflate( R.layout.menu_layout, viewGroup, false );
     }
 
-    MenuItem menuItem = menuItems.get( i );
+    Product product = products.get( i );
 
     ImageView imageView = view.findViewById( R.id.imageView );
-    imageView.setImageResource( menuItem.getImageId() );
+    Bitmap bitmap = ImageManagement.loadImage( product.image_path );
+    imageView.setImageBitmap( bitmap );
 
     TextView foodName = view.findViewById( R.id.tv_food_name );
-    foodName.setText( menuItem.getFoodName() );
+    foodName.setText( product.name );
 
     TextView foodPrice = view.findViewById( R.id.tv_food_price );
-    foodPrice.setText( String.valueOf( menuItem.getFoodPrice() ) );
+    foodPrice.setText( String.valueOf( product.price ) );
 
     view.setOnClickListener( v -> {
       if ( context.getClass().getSimpleName().equals( "MenuActivity" ) ) {
-        initPopupWindow( menuItem );
+        initPopupWindow( product );
+      } else if ( context.getClass().getSimpleName().equals( "FoodEditActivity" ) ) {
+        Intent intent = new Intent( context, FoodDetailActivity.class );
+        int id = product.id;
+        intent.putExtra( "product_id", id );
+        context.startActivity( intent );
       }
     });
 
     return view;
   }
 
-  private void initPopupWindow( MenuItem menuItem ) {
+  private void initPopupWindow( Product product ) {
     if ( foodPopupWindow != null ) {
       return;
     }
@@ -73,10 +87,14 @@ public class MenuListViewAdapter extends BaseAdapter {
     foodPopupWindow = new PopupWindow( view );
 
     TextView foodName = view.findViewById( R.id.tv_popup_food_name );
-    foodName.setText( menuItem.getFoodName() );
+    foodName.setText( product.name );
 
     ImageView foodImage = view.findViewById( R.id.iv_popup_food_image );
-    foodImage.setImageResource( menuItem.getImageId() );
+    Bitmap bitmap = ImageManagement.loadImage( product.image_path );
+    foodImage.setImageBitmap( bitmap );
+
+    TextView foodDescription = view.findViewById( R.id.tv_popup_description );
+    foodDescription.setText( "餐點描述\n" + product.description );
 
     // 設定視窗大小與位置
     foodPopupWindow.setHeight( ViewGroup.LayoutParams.WRAP_CONTENT );
@@ -93,6 +111,14 @@ public class MenuListViewAdapter extends BaseAdapter {
       } else if ( v.getId() == R.id.btn_popup_sub && number > 1 ) {
         number--;
       } else if ( v.getId() == R.id.btn_popup_confirm ) {
+        // Check if the product is in shopping cart
+        MenuItem menuItem = MenuItem.isInShoppingCart( product );
+        if ( menuItem != null ) {
+          int newNumber = menuItem.getNumber() + number;
+          menuItem.setNumber( newNumber );
+        } else {
+          MenuItem.addShoppingCart( new MenuItem( product, number ) );
+        }
         foodPopupWindow.dismiss();
         foodPopupWindow = null;
       } else if ( v.getId() == R.id.btn_popup_cancel ) {

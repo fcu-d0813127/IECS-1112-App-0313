@@ -1,53 +1,46 @@
 package com.example.iecs_1112_app_0313;
 
+import com.example.iecs_1112_app_0313.DatabaseModels.Product;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MenuItem {
-  private int imageId;
-  private String foodName;
-  private int foodPrice;
+  public static List<MenuItem> ShoppingCart = new ArrayList<>();
+  private Product product;
   private int number;
 
-  public MenuItem( int imageId, String foodName, int foodPrice ) {
-    this.imageId = imageId;
-    this.foodName = foodName;
-    this.foodPrice = foodPrice;
-  }
-
-  public MenuItem( int imageId, String foodName, int foodPrice, int number ) {
-    this.imageId = imageId;
-    this.foodName = foodName;
-    this.foodPrice = foodPrice;
+  public MenuItem( Product product, int number ) {
+    this.product = product;
     this.number = number;
   }
 
-  public int getImageId() {
-    return imageId;
+  public static void addShoppingCart( MenuItem menuItem ) {
+    ShoppingCart.add( menuItem );
   }
 
-  public void setImageId( int imageId ) {
-    this.imageId = imageId;
+  public static MenuItem isInShoppingCart( Product product ) {
+    for ( MenuItem menuItem : ShoppingCart ) {
+      if ( menuItem.product.id == product.id ) {
+        return menuItem;
+      }
+    }
+    return null;
   }
 
-  public String getFoodName() {
-    return foodName;
+  public Product getProduct() {
+    return product;
   }
 
-  public void setFoodName( String foodName ) {
-    this.foodName = foodName;
-  }
-
-  public int getFoodPrice() {
-    return foodPrice;
-  }
-
-  public void setFoodPrice( int foodPrice ) {
-    this.foodPrice = foodPrice;
+  public void setProduct( Product product ) {
+    this.product = product;
   }
 
   public int getNumber() {
     return number;
   }
 
-  public void setNumber(int number) {
+  public void setNumber( int number ) {
     this.number = number;
   }
 }

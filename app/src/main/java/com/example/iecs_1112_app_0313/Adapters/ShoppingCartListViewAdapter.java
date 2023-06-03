@@ -1,12 +1,17 @@
-package com.example.iecs_1112_app_0313;
+package com.example.iecs_1112_app_0313.Adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.iecs_1112_app_0313.ImageManagement;
+import com.example.iecs_1112_app_0313.MenuItem;
+import com.example.iecs_1112_app_0313.R;
 
 import java.util.List;
 
@@ -43,13 +48,14 @@ public class ShoppingCartListViewAdapter extends BaseAdapter {
     MenuItem menuItem = menuItems.get( i );
 
     ImageView imageView = view.findViewById( R.id.iv_shopping_cart_icon );
-    imageView.setImageResource( menuItem.getImageId() );
+    Bitmap bitmap = ImageManagement.loadImage( menuItem.getProduct().image_path );
+    imageView.setImageBitmap( bitmap );
 
     TextView foodName = view.findViewById( R.id.tv_shopping_cart_food_name );
-    foodName.setText( menuItem.getFoodName() );
+    foodName.setText( menuItem.getProduct().name );
 
     TextView foodPrice = view.findViewById( R.id.tv_shopping_cart_price );
-    foodPrice.setText( String.valueOf( menuItem.getFoodPrice() ) );
+    foodPrice.setText( String.valueOf( menuItem.getProduct().price ) );
 
     TextView foodNumber = view.findViewById( R.id.tv_shopping_cart_number );
     foodNumber.setText( String.valueOf( menuItem.getNumber() ) );

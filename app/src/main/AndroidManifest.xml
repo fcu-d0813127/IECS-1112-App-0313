@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        android:minSdkVersion="30" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,22 +16,43 @@
         android:theme="@style/Theme.IECS1112App0313"
         tools:targetApi="31">
         <activity
-            android:name=".DetailAfterCheckoutActivity"
+            android:name=".Activities.OrderHistoryActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailBeforeCheckoutActivity"
+            android:name=".Activities.StoreListActivity"
             android:exported="false" />
         <activity
-            android:name=".PickUpTimeActivity"
+            android:name=".Activities.StoreEditActivity"
             android:exported="false" />
         <activity
-            android:name=".ShoppingCartActivity"
+            android:name=".Activities.StoreAddActivity"
             android:exported="false" />
         <activity
-            android:name=".MenuActivity"
+            android:name=".Activities.FoodDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.FoodEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.FoodAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.DetailAfterCheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.DetailBeforeCheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.PickUpTimeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.ShoppingCartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
