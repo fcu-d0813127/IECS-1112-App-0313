@@ -39,6 +39,7 @@ public interface ImageManagement {
     return image_base_path + getMD5( data ) + ".png";
   }
 
+
   static Bitmap loadImage( String image_path ) {
     return BitmapFactory.decodeFile( image_path );
   }
@@ -58,6 +59,7 @@ public interface ImageManagement {
   }
 
   static void deleteImage( String image_path ) {
+    if ( image_path == null || image_path.isEmpty() ) return;
     File file = new File( image_path );
     if ( file.exists() ) file.delete();
   }
