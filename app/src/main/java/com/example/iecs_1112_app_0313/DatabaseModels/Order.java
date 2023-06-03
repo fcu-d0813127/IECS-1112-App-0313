@@ -2,7 +2,6 @@ package com.example.iecs_1112_app_0313.DatabaseModels;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity( tableName = "orders" )
@@ -20,9 +19,9 @@ public class Order {
   public int quantity;
 
   @ColumnInfo( name = "pick_up_time" )
-  public int pick_up_time;
+  public String pick_up_time;
 
-  public Order( int order_id, int food_id, int quantity, int pick_up_time ) {
+  public Order( int order_id, int food_id, int quantity, String pick_up_time ) {
     this.order_id = order_id;
     this.food_id = food_id;
     this.quantity = quantity;

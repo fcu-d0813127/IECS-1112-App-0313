@@ -9,4 +9,7 @@
     <item
         android:id="@+id/store_edit"
         android:title="編輯餐廳" />
+    <item
+        android:id="@+id/order_history"
+        android:title="訂單紀錄" />
 </menu>

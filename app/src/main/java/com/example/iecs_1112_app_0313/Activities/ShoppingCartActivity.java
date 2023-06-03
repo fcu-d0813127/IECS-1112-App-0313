@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +12,6 @@ import com.example.iecs_1112_app_0313.Adapters.ShoppingCartListViewAdapter;
 import com.example.iecs_1112_app_0313.MenuItem;
 import com.example.iecs_1112_app_0313.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ShoppingCartActivity extends AppCompatActivity {
@@ -27,19 +25,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     btnNext.setText( "下一步" );
 
-    List<MenuItem> menuItems = new ArrayList<>();
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
-    menuItems.add( new MenuItem( R.drawable.ic_launcher_background, "Cart", 100, 1 ) );
+    List<MenuItem> menuItems = MenuItem.ShoppingCart;
 
     ListView menuListView = findViewById( R.id.lv_shopping_cart_list );
     menuListView.setAdapter( new ShoppingCartListViewAdapter( this, menuItems ) );

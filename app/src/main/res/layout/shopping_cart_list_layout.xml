@@ -8,11 +8,11 @@
 
     <ImageView
         android:id="@+id/iv_shopping_cart_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_weight="1"
         android:adjustViewBounds="true"
-        android:scaleType="center"
+        android:scaleType="centerCrop"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView

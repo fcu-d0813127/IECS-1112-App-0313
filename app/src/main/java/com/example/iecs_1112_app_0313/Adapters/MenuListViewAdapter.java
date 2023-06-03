@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.iecs_1112_app_0313.Activities.FoodDetailActivity;
 import com.example.iecs_1112_app_0313.DatabaseModels.Product;
 import com.example.iecs_1112_app_0313.ImageManagement;
+import com.example.iecs_1112_app_0313.MenuItem;
 import com.example.iecs_1112_app_0313.R;
 
 import java.util.List;
@@ -110,6 +111,14 @@ public class MenuListViewAdapter extends BaseAdapter {
       } else if ( v.getId() == R.id.btn_popup_sub && number > 1 ) {
         number--;
       } else if ( v.getId() == R.id.btn_popup_confirm ) {
+        // Check if the product is in shopping cart
+        MenuItem menuItem = MenuItem.isInShoppingCart( product );
+        if ( menuItem != null ) {
+          int newNumber = menuItem.getNumber() + number;
+          menuItem.setNumber( newNumber );
+        } else {
+          MenuItem.addShoppingCart( new MenuItem( product, number ) );
+        }
         foodPopupWindow.dismiss();
         foodPopupWindow = null;
       } else if ( v.getId() == R.id.btn_popup_cancel ) {

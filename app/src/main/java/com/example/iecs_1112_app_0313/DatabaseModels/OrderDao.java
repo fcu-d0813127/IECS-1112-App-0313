@@ -11,8 +11,11 @@ import java.util.List;
 
 @Dao
 public interface OrderDao {
-  @Query( "SELECT * FROM orders" )
-  List<Order> getAll();
+  @Query( "SELECT * FROM orders WhERE order_id = :order_id" )
+  List<Order> getAll( int order_id );
+
+  @Query( "SELECT MAX(order_id) FROM orders" )
+  int getMaxOrderId();
 
   @Query( "SELECT * FROM orders WHERE order_id = :order_id LIMIT 1" )
   List<Order> getById( int order_id );

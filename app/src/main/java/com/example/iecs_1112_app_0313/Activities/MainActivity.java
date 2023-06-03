@@ -124,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
     } else if ( id == R.id.store_edit ) {
       Intent intent = new Intent( MainActivity.this, StoreListActivity.class );
       startActivity( intent );
+    } else if ( id == R.id.order_history ) {
+      Intent intent = new Intent( MainActivity.this, OrderHistoryActivity.class );
+      startActivity( intent );
     }
 
     return true;
