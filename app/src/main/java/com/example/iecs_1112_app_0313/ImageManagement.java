@@ -2,6 +2,7 @@ package com.example.iecs_1112_app_0313;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Environment;
 
 import java.io.ByteArrayOutputStream;
@@ -23,7 +24,7 @@ public interface ImageManagement {
   static byte[] bitmap2Bytes( Bitmap image ) {
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
     image = rescaleToWidth( image, 300 );
-    image.compress( Bitmap.CompressFormat.JPEG, 80, stream );
+    image.compress( Bitmap.CompressFormat.WEBP_LOSSY, 80, stream );
     return stream.toByteArray();
   }
 
@@ -42,7 +43,7 @@ public interface ImageManagement {
   }
 
   static String getImagePath( byte[] data ) {
-    return image_base_path + getMD5( data ) + ".jpg";
+    return image_base_path + getMD5( data ) + ".webp";
   }
 
 
@@ -59,7 +60,7 @@ public interface ImageManagement {
 
     try ( FileOutputStream file = new FileOutputStream( image_path ) ) {
       image = rescaleToWidth( image, 300 );
-      image.compress( Bitmap.CompressFormat.JPEG, 80, file );
+      image.compress( Bitmap.CompressFormat.WEBP_LOSSY, 80, file );
     } catch ( IOException e ) {
       throw new RuntimeException( e );
     }
