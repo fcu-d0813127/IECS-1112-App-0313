@@ -62,7 +62,9 @@ public class StoreEditActivity extends AppCompatActivity {
 
     btnStoreUpdate.setOnClickListener( v -> {
       store.name = etStoreName.getText().toString();
-      store.image_path = ImageManagement.saveImage( new_bitmap );
+      if ( new_bitmap != null ) {
+        store.image_path = ImageManagement.saveImage( new_bitmap );
+      }
       DatabaseController.updateStore( store );
       finish();
     });

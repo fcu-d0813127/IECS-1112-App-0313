@@ -16,8 +16,7 @@ public interface ImageManagement {
   String image_base_path = Environment.getExternalStorageDirectory().getPath() + "/AnyDishes/user_images/";
 
   static Bitmap rescaleToWidth( Bitmap image, int new_width ) {
-    float aspect_ratio = image.getWidth() / ( float ) image.getHeight();
-    int new_height = Math.round( new_width / aspect_ratio );
+    int new_height = Math.round( ( float ) new_width / 4 * 3 );
     return Bitmap.createScaledBitmap( image, new_width, new_height, false );
   }
 
@@ -52,6 +51,7 @@ public interface ImageManagement {
   }
 
   static String saveImage( Bitmap image ) {
+    if ( image == null ) return null;
     String image_path = getImagePath( bitmap2Bytes( image ) );
     
     // Prevent writing to duplicated file
