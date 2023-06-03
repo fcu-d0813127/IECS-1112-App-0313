@@ -17,7 +17,7 @@ public interface ImageManagement {
 
   static byte[] bitmap2Bytes( Bitmap image ) {
     ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    image.compress(Bitmap.CompressFormat.PNG, 100, stream);
+    image.compress( Bitmap.CompressFormat.JPEG, 80, stream );
     return stream.toByteArray();
   }
 
@@ -36,7 +36,7 @@ public interface ImageManagement {
   }
 
   static String getImagePath( byte[] data ) {
-    return image_base_path + getMD5( data ) + ".png";
+    return image_base_path + getMD5( data ) + ".jpg";
   }
 
 
@@ -51,7 +51,7 @@ public interface ImageManagement {
     if ( Files.exists( Paths.get( image_path ) ) ) return image_path;
 
     try ( FileOutputStream file = new FileOutputStream( image_path ) ) {
-      image.compress( Bitmap.CompressFormat.PNG, 100, file );
+      image.compress( Bitmap.CompressFormat.JPEG, 80, file );
     } catch ( IOException e ) {
       throw new RuntimeException( e );
     }
